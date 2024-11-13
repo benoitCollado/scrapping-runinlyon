@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Test pour upload avec node.js</title>
+    <script type="module" src="csv-sync.js" defer></script>
+    <script type="module" src="script.js" defer></script>
+  </head>
+  <body>
+    <form>
+      <label for="file">File</label>
+      <input type="file" id="file" name="file" />
+      <button type="button" id="button">Upload</button>
+    </form>
+    <form id="register-form">
+      <label for="login">Login</label>
+      <input type="text" id="login" name="login" />
+      <label for="password">password</label>
+      <input type="password" id="password" name="password" />
+      <button type="button" id="register">register</button>
+    </form>
+    <form id="login-form">
+      <label for="login-input"">Login</label>
+      <input type="text" id="login-input" name="login-input" />
+      <label for="password-input">password</label>
+      <input type="password" id="password-input" name="password-input" />
+      <button type="button" id="login-button">register</button>
+    </form>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+    <div class="editable-div" id="1_1" contenteditable>bonjour</div>
+    <div class="editable-div" id="1_2" contenteditable>bonjour</div>
+  </div>
+  <div id="headers-in-files">
+  </div>
+  <div>
+  </div>
+  </body>
+</html>
