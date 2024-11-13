@@ -35,7 +35,7 @@
    async function register(e : Event){
      try{
        e.preventDefault();
-       
+       console.log("ready : " + ready);
        if(ready){
        console.log(username.value);
        console.log(password.value);

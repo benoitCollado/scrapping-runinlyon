@@ -66,6 +66,7 @@ export async function islogedin(req, res){
 export async function username(req, res){
   try{
     const username = req.params.user;
+    console.log(username);
     const user = await User.findOne({ where: { username: username} });
     if (!user) {
       return res.status(200).json({ message: "username available", free: true });
