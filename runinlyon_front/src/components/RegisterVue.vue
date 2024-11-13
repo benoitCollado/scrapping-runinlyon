@@ -21,8 +21,10 @@
       const data = await resp.json();
       if(newUsername === ""){
         available.value = "username is required";
+        ready = false;
       }else{
       available.value = data.message;
+      ready = true;
       }
     }catch(error){
       console.log(error);
@@ -33,6 +35,7 @@
    async function register(e : Event){
      try{
        e.preventDefault();
+       
        if(ready){
        console.log(username.value);
        console.log(password.value);
@@ -70,7 +73,7 @@
   <input type='text' v-model='username' placeholder="nom d'utilisateur"/>
   <span>{{available}}</span>
   <input type='password' v-model='password' placeholder="mot de passe"/>
-  <button @click='(e)=>{register(e)}'>login</button>
-  <RouterLink to="/register">s'incrire</RouterLink>
+  <button @click='(e)=>{console.log("click");register(e);}'>s'inscrire</button>
+  <RouterLink to="/login">se connecter</RouterLink>
   
 </template>
