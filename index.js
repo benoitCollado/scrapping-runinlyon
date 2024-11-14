@@ -7,11 +7,12 @@ import upload from "./routes/upload.js";
 import download from "./routes/download.js";
 import cors from "cors";
 import NewFile from "./events.js";
+import { env } from "process";
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 //app.use(cors({'Access-Control-Allow-Origin': "https://583d13e9-6176-4fb9-9932-25f41617cc0b-00-3qmz5lm97l5cb.kirk.replit.dev", 'Access-Control-Allow-Credentials':true, 'Access-Control-Allow-Headers':'*'}));;
 app.use(logger);
