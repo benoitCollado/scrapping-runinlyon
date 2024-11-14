@@ -5,9 +5,14 @@
   //import {ref} from 'vue';
   //import {useRouter} from 'vue-router';
   let file : File;
+  const fileReader = new FileReader();
  function onChangeInput(e: Event){
     const target = e.target as InputFileEventTarget;
    file = target.files[0];
+   fileReader.readAsText(file);
+   fileReader.onloadend = () => {
+     console.log(fileReader.result);
+   }
    console.log(file);
  }
 </script>
