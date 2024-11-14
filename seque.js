@@ -1,4 +1,5 @@
 import sequelize from "sequelize";
+import { PostgresDialect } from '@sequelize/postgres';
 //import env from 'dotenv';
 /*
 const db = new sequelize("sqlite://runinlyon.db");
@@ -18,7 +19,7 @@ import { PostgresDialect } from '@sequelize/postgres';
 */
 console.log(process.env.DATABASE_URL);
 
-const db = new sequelize(process.env.DATABASE_URL);
+const db = new sequelize(process.env.DATABASE_URL,{dialect:PostgresDialect});
 try{
   await db.authenticate();
   console.log("connection established");
