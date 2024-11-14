@@ -1,5 +1,5 @@
 import { FileDB as File, UserDB as User } from "../models/initDB.js";
-import Client from '@replit/object-storage'
+import {Client} from '@replit/object-storage'
 
 const client = new Client();
 
