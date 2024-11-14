@@ -16,7 +16,7 @@
        "Content-Type": "application/json",
      },
    });
-  console.log(router);
+ 
   const data = await response.json();
     console.log(data);
     if(response.status >= 200 && response.status < 300){

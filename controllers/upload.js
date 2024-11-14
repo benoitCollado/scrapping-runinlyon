@@ -4,7 +4,7 @@ import path from "path";
 import { FileDB as File, UserDB as User } from "../models/initDB.js";
 import NewFile from "../events.js";
 
-import Client from '@replit/object-storage'
+import {Client} from '@replit/object-storage'
 
 const client = new Client();
 
