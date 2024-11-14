@@ -1,11 +1,29 @@
 <script setup lang="ts">
   import {ref} from 'vue';
   import {useRouter} from 'vue-router';
-
+  const routerIntern = useRouter(); 
+  async function beforeLoad(){ 
+    const response = await fetch('https://scrapping-runinlyon-colladobenoit.replit.app/auth/isloged',
+   {
+     method: "GET",
+     headers: {
+       "Credentiales": "include",
+       "Content-Type": "application/json",
+     },
+   });
+  console.log(router);
+  const data = await response.json();
+    console.log(data);
+    if(response.status >= 200 && response.status < 300){
+    //logedIn.value = true;
+    routerIntern.push({path:'/upload'});
+  }
+  }
+  beforeLoad();
 
   const username = ref('');
   const password = ref('');
-  const routerIntern = useRouter(); 
+
    async function login(e : Event){
      try{
        e.preventDefault();

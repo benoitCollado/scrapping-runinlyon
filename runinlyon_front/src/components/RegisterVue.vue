@@ -6,7 +6,25 @@
   const password = ref('');
   let available = ref('username is required');
   let ready = false; 
-
+  const routerIntern = useRouter(); 
+  async function beforeLoad(){ 
+    const response = await fetch('https://scrapping-runinlyon-colladobenoit.replit.app/auth/isloged',
+   {
+     method: "GET",
+     headers: {
+       "Credentiales": "include",
+       "Content-Type": "application/json",
+     },
+   });
+  console.log(router);
+  const data = await response.json();
+    console.log(data);
+    if(response.status >= 200 && response.status < 300){
+    //logedIn.value = true;
+    routerIntern.push({path:'/upload'});
+  }
+  }
+  beforeLoad();
   watch(username, async(newUsername)=>{
     try{
       console.log("username value : " +newUsername);
@@ -30,8 +48,7 @@
       console.log(error);
     }
   })
-  
-  const routerIntern = useRouter(); 
+
    async function register(e : Event){
      try{
        e.preventDefault();
@@ -56,10 +73,6 @@
       if(response.ok){
 
         routerIntern.push({path:'/login'});
-      }else{
-        if(response.status === 400){
-          
-        }
       }
     }
    }catch(error){
