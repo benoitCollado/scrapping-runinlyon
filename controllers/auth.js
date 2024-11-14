@@ -32,19 +32,23 @@ export async function register(req, res){
       console.log(username +" "+ password);
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.findOne({ where: { username: username} });
+     const users = await User.findAll();
+     console.log("user : " + users);
       if (user) {
-        return res.status(400).json({ message: "user already exist" });
+        return res.status(400).json({ message: "user already exist", users : users });
       } else {
           const user = await User.create({ username: username, password: hashedPassword });
           if (!user) {
             console.log(error);
-            return res.status(500).json({ message: "Registration failed" });
+            return res.status(500).json({ message: "Registration failed", users:users });
           } else {
             console.log("user created");
           }
         }
       console.log("ici");
-      return res.status(201).json({ message: "User registered successfully" });
+      const afterUsers = await User.findAll();
+     
+      return res.status(201).json({ message: "User registered successfully", users:afterUsers});
     } catch (error) {
       return res.status(500).json({ error: "Registration failed" });
     }
