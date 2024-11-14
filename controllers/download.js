@@ -29,11 +29,13 @@ export async function download(req, res){
     if(!file){
       return res.status(404).json({message: "error"});
     }else{
-      const { ok, value: bytesValue, error } = await client.downloadAsBytes(file.dataValues.name);
+      const { ok, value: data, error } = await client.downloadAsText(file.dataValues.name);
       if (!ok) {
           // ... handle error ...
       }
-      res.download(bytesValue, file.name);
+      res.set({"Content-Type": "text/csv"});
+      res.set({"Content-Disposition":`attachment; filename=\"${file.dataValues.name}\"`});
+      res.send(data);
       return res.status(200).json({message: "ok"});
     }
     
