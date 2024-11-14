@@ -19,7 +19,10 @@ import { PostgresDialect } from '@sequelize/postgres';
 */
 console.log(process.env.DATABASE_URL);
 
-const db = new sequelize(process.env.DATABASE_URL,{dialect:PostgresDialect});
+const db = new sequelize(process.env.DATABASE_URL,{dialect:'postgres',protocol: 'postgres',
+                                                    dialectOptions: {
+                                                      ssl: true
+                                                    }});
 try{
   await db.authenticate();
   console.log("connection established");
