@@ -1,4 +1,7 @@
 import { FileDB as File, UserDB as User } from "../models/initDB.js";
+import Client from '@replit/object-storage'
+
+const client = new Client();
 
 export async function list_files(req, res){
   try{
@@ -26,7 +29,11 @@ export async function download(req, res){
     if(!file){
       return res.status(404).json({message: "error"});
     }else{
-      res.download(file.path, file.name);
+      const { ok, value: bytesValue, error } = await client.downloadAsBytes(file.dataValues.name);
+      if (!ok) {
+          // ... handle error ...
+      }
+      res.download(bytesValue, file.name);
       return res.status(200).json({message: "ok"});
     }
     

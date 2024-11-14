@@ -30,3 +30,6 @@ localPort = 5173
 
 [[ports]]
 localPort = 8080
+
+[objectStorage]
+defaultBucketID = "replit-objstore-a85eeb51-5780-49fd-9232-48430382682e"

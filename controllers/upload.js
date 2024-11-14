@@ -4,6 +4,9 @@ import path from "path";
 import { FileDB as File, UserDB as User } from "../models/initDB.js";
 import NewFile from "../events.js";
 
+import Client from '@replit/object-storage'
+
+const client = new Client();
 
 //const __filename = fileURLToPath(import.meta.url);
 
@@ -24,10 +27,16 @@ export async function upload(req, res){
       data.push(chunk);
       console.log("data");
     });
-    req.on("end", () => {
+    req.on("end", async () => {
       let fileData = Buffer.concat(data);
       console.log(fileData);
-      fs.writeFile(
+      const { ok, error } = await client.uploadFromBytes(file.dataValues.name, fileData);
+      if(!ok){
+        return res.status(500).json({error: "error"});
+      }else{
+        NewFile.emit("newFile", file.dataValues.path, id);
+      }
+      /*fs.writeFile(
         path.join(__dirname, file.dataValues.name),
         fileData,
         "base64",
@@ -38,8 +47,9 @@ export async function upload(req, res){
         },
       ).then(()=>{
         NewFile.emit("newFile", file.dataValues.path, id);
-      });
-    });/*
+      });*/
+    });
+    /*
     const child = cp.fork("/home/runner/scrapping-runinlyon/controllers/"+"child.js");
     child.send({path: "/home/runner/scrapping-runinlyon/files/" + req.decoded.user + "-" +file.dataValues.name, id:id});*/
     return res.status(200).json({message: "ok"});
@@ -55,7 +65,7 @@ export async  function upload_meta_data(req, res){
   let type = req.body.type;
   let date = new Date();
   console.log(req.decoded.user);
-  const file = await File.create({ name: req.decoded.user + "-"+ date.getTime() +"-" +name, type: type, path:"/home/runner/scrapping-runinlyon/files/" + req.decoded.user + "-"+ date.getTime() +"-" +name, username: req.decoded.user})
+  const file = await File.create({ name: req.decoded.user + "-"+ date.getTime() +"-" +name, type: type, path:/*"/home/runner/scrapping-runinlyon/files/" +*/ req.decoded.user + "-"+ date.getTime() +"-" +name, username: req.decoded.user})
    if(!file){
      return res.status(500).json({message: "error file not created" });
    }else{

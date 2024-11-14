@@ -18,8 +18,8 @@ import { PostgresDialect } from '@sequelize/postgres';
 
 */
 console.log(process.env.DATABASE_URL);
-
-const db = new sequelize(process.env.DATABASE_URL,{dialect:'postgres',protocol: 'postgres',
+const url = process.env.DATABASE_URL;
+const db = new sequelize(url,{dialect:'postgres',protocol: 'postgres',
                                                     dialectOptions: {
                                                       ssl: true
                                                     }});
