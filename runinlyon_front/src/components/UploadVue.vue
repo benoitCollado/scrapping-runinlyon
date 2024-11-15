@@ -46,10 +46,14 @@
   <div v-if="headersCSV.length > 0">
     <form>
       <div>
-        <select v-for="header in headers" :name="header" :id="header">
-          <option value="">choose a headers please</option>
-          <option v-for="csvh in headersCSV" :value="csvh" >csvh</option>
-        </select>
+        <div>{{headersCSV}}</div>
+        <div v-for="header in headers">
+          <label :for="header">{{header}} :</label>
+          <select  :name="header" :id="header">
+            <option value="">choose a headers please</option>
+            <option v-for="csvh in headersCSV" :value="csvh" >{{csvh}}</option>
+          </select>
+        </div>
       </div>
     </form>
   </div>
