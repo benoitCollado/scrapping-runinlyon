@@ -58,9 +58,9 @@ export async function islogedin(req, res){
   try{
     console.log(req.headers)
     if(req.decoded){
-      return res.status(201).json({message : "authenticated"});
+      return res.status(200).json({message : "authenticated"});
     }else{
-      return res.status(401).json({message : "not authenticated"});
+      return res.status(100).json({message : "not authenticated"});
     }
   }catch{
       return res.status(500).json({message : "internal error"});

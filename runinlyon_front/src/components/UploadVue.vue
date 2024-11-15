@@ -1,9 +1,8 @@
 <script setup lang="ts">
+  import csv from "../csv-sync.js";
   interface InputFileEventTarget extends EventTarget{
     files: [File];
   }
-  //import {ref} from 'vue';
-  //import {useRouter} from 'vue-router';
   let file : File;
   const fileReader = new FileReader();
   let data : string;
@@ -43,6 +42,7 @@
     result = result.replace(/ô/g, 'o');
        data = result;
       ready = true;
+      console.log(csv.get_headers(data));
        console.log(data);
       console.log(ready)
    }
