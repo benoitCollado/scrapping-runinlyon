@@ -3,7 +3,7 @@
   import {ref} from 'vue';
   const headersCSV = ref<string[]>([]);
   const headers = ["nom", "prenom", "catgéorie", "dossard"];
-  const association = {nom: "", prenom: "", categorie: "", dossard: ""};
+  const association: {[key:string]:string} = {nom: "", prenom: "", categorie: "", dossard: ""};
   interface InputFileEventTarget extends EventTarget{
     files: [File];
   }
@@ -35,6 +35,13 @@
    }
   console.log(association);
   console.log(ready);
+
+  const selectOnChangeHandler = (e: Event) => {
+    const target = e.target as HTMLSelectElement;
+    association[target.name] = target.value;
+    console.log(association);
+  }
+  console.log(selectOnChangeHandler);
 </script>
 
 <template>
@@ -49,7 +56,7 @@
         <div>{{headersCSV}}</div>
         <div v-for="header in headers">
           <label :for="header">{{header}} :</label>
-          <select  :name="header" :id="header">
+          <select  :name="header" :id="header" onchange="selectOnChangeHandler(event)">
             <option value="">choose a headers please</option>
             <option v-for="csvh in headersCSV" :value="csvh" >{{csvh}}</option>
           </select>
