@@ -2,8 +2,8 @@
   import csv from "../csv-sync.js";
   import {ref} from 'vue';
   const headersCSV = ref<string[]>([]);
-  const headers = ["nom", "prenom", "catgéorie", "dossard"];
-  const association: {[key:string]:string} = {nom: "", prenom: "", categorie: "", dossard: ""};
+  const headers = ["nom", "prenom", "catégorie", "dossard"];
+  const association: {[key:string]:string} = {nom: "", prenom: "", catégorie: "", dossard: ""};
   interface InputFileEventTarget extends EventTarget{
     files: [File];
   }
