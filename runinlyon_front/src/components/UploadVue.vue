@@ -42,7 +42,7 @@
     result = result.replace(/ô/g, 'o');
        data = result;
       ready = true;
-      console.log(csv.get_headers(data));
+      console.log(csv.get_headers(data,";"));
        console.log(data);
       console.log(ready)
    }

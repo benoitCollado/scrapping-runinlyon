@@ -11,12 +11,12 @@ function parse_csv_to_array(file : string ,options : {delimiter: string, headers
   if(options.headers){
     have_headers = options.headers;
   }
-  let number_column = determine_number_columns(delimiter, file)
+ // let number_column = determine_number_columns(delimiter, file)
   if(have_headers){
     const headers = get_headers(file, delimiter)
     new_array = get_array_from_csv_with_headers(file, headers, delimiter);
   }else{
-    new_array = get_array_from_csv_without_headers(file, number_column, delimiter);
+    new_array = get_array_from_csv_without_headers(file, delimiter);
   }
 
   return new_array;
@@ -39,7 +39,7 @@ function determine_number_columns(delimiter : string, file: string){
   return number_column;
 }
 function get_headers(file : string, delimiter : string){
-  let headers = [];
+  let headers: string[] = [];
   let current_header = "";
   for(let char of file){
     if(char === "\r"){
@@ -56,10 +56,10 @@ function get_headers(file : string, delimiter : string){
   return headers;
 }
 
-function get_array_from_csv_with_headers(file, headers, delimiter){
-  let new_array = [];
+function get_array_from_csv_with_headers(file: string, headers: string[], delimiter:string){
+  let new_array: {[key:string]:any}[] = [];
   let current_line = 0;
-  let current_data = {}
+  let current_data : {[key:string]:any} = {}
   let current_column = 0
   let current_value = "";
   for(let char of file){
@@ -91,10 +91,10 @@ function get_array_from_csv_with_headers(file, headers, delimiter){
 
   return new_array;
 }
-function get_array_from_csv_without_headers(file, delimiter){
-  let new_array = [];
+function get_array_from_csv_without_headers(file: string, delimiter:string){
+  let new_array: {[key:string]:string}[] = [];
   let current_line = 0;
-  let current_data = {}
+  let current_data: {[key:number]:string} = {}
   let current_column = 0
   let current_value = "";
   for(let char of file){
@@ -123,44 +123,27 @@ function get_array_from_csv_without_headers(file, delimiter){
   return new_array;
 }
 
-/**
- * data must be an array
- * delimiter must be character
- */
-function append_csv_line_to_file(file, data, delimiter){
-  let new_data = data.join(";");
-  new_data += '\r';
-  fs.appendFileSync(file, new_data, (err) => {
-    if (err) throw err;
-  });
-}
-
-function clear_csv_file(file){
-  fs.writeFileSync(file, "");
-}
-
-function get_headers_from_json(json){
+function get_headers_from_json(json:{[key:string]:any}){
   return Object.keys(json[0]);
 }
 
-function json_to_csv(json){
+function json_to_csv(json:{[key:string]:any}){
   const values = Object.values(json);
   const text = values.join(";");
   return text + "\r";
 }
-function json_keys_to_csv_headers(json){
+function json_keys_to_csv_headers(json:{[key:string]:any}){
   const values = get_headers_from_json(json);
   const text = values.join(";");
   return text + "\r";
 }
+
 const object = {
   parse_csv_to_array: parse_csv_to_array,
   determine_number_columns: determine_number_columns,
   get_headers: get_headers,
   get_array_from_csv_with_headers: get_array_from_csv_with_headers,
   get_array_from_csv_without_headers: get_array_from_csv_without_headers, 
-  append_csv_line_to_file: append_csv_line_to_file,
-  clear_csv_file: clear_csv_file,
   get_headers_from_json: get_headers_from_json,
   json_to_csv: json_to_csv,
   json_keys_to_csv_headers: json_keys_to_csv_headers
