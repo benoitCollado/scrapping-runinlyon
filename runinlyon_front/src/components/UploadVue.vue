@@ -13,14 +13,16 @@
   const fileReader = new FileReader();
   let data : string;
   let ready = false;
- function onChangeInput(e: Event){
+function onChangeInput(e: Event){
     const target = e.target as InputFileEventTarget;
    file = target.files[0];
+  console.log("ici");
    fileName = file.name;
    fileType = file.type;
+  console.log("name : ", fileName);
+  console.log("type : ", fileType);
    fileReader.readAsText(file,'latin1');
-   console.log("name : ", fileName);
-   console.log("type : ", fileType);
+
  }
   fileReader.onloadend = () => {
      let result = fileReader.result as string;
