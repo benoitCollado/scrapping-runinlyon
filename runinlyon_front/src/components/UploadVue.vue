@@ -8,6 +8,7 @@
   let fileType : string = "";
   interface InputFileEventTarget extends EventTarget{
     files: [File];
+    value: string|null;
   }
   let file : File;
   const fileReader = new FileReader();
@@ -21,7 +22,11 @@ function onChangeInput(e: Event){
    fileType = file.type;
   console.log("name : ", fileName);
   console.log("type : ", fileType);
+  if(fileType.includes("csv")){
    fileReader.readAsText(file,'latin1');
+  }else{
+    target.value = "";
+  }
 
  }
   fileReader.onloadend = () => {
