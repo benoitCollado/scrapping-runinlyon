@@ -26,6 +26,12 @@ function onChangeInput(e: Event){
    fileReader.readAsText(file,'latin1');
   }else{
     target.value = "";
+    for(let value of Object.values(association)){
+      if(value !== ""){
+        value = "";
+      }
+    }
+    ready = false;
   }
 
  }
