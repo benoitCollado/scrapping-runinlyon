@@ -71,13 +71,13 @@ function onChangeInput(e: Event){
       ready = false;
     }
   }
- /* const onSubmit = (e: Event) =>{
+ const onSubmit = async (e: Event) =>{
     e.preventDefault();
-    console.log(association);
-    console.log(ready);
+    console.log(fileName);
+    console.log(fileType);
     if(ready){
-      const body = { username: association.nom, password: association.prenom, catégorie: association.catégorie, dossard: association.dossard };
-      const response = fetch('https://scrapping-runinlyon-colladobenoit.replit.app/upload/metadata',
+      const body = { name : fileName, type : fileType};
+      const response = await fetch('https://scrapping-runinlyon-colladobenoit.replit.app/upload/metadata',
        {
          method: "POST",
          headers: {
@@ -87,10 +87,10 @@ function onChangeInput(e: Event){
          body: JSON.stringify(body),
        }
      );
-      const data = response.json();
+      const data = await response.json();
       console.log(data);
     }
-  }*/
+  }
   
 </script>
 
@@ -98,7 +98,7 @@ function onChangeInput(e: Event){
   <form>
     <label for="file">File</label>
     <input @input="onChangeInput" type="file" id="file" name="file" />
-    <button type="button" id="button">Upload</button>
+    <button @click="(e)=>onSubmit(e)" type="button" id="button">Upload</button>
   </form>
   <div v-if="headersCSV.length > 0">
     <form>
