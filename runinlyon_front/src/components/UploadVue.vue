@@ -4,6 +4,8 @@
   const headersCSV = ref<string[]>([]);
   const headers = ["nom", "prenom", "catégorie", "dossard"];
   const association: {[key:string]:string} = {nom: "", prenom: "", catégorie: "", dossard: ""};
+  let fileName : string = "";
+  let fileType : string = "";
   interface InputFileEventTarget extends EventTarget{
     files: [File];
   }
@@ -14,7 +16,11 @@
  function onChangeInput(e: Event){
     const target = e.target as InputFileEventTarget;
    file = target.files[0];
+   fileName = file.name;
+   fileType = file.type;
    fileReader.readAsText(file,'latin1');
+   console.log("name : ", fileName);
+   console.log("type : ", fileType);
  }
   fileReader.onloadend = () => {
      let result = fileReader.result as string;
@@ -40,8 +46,39 @@
     console.log("ici");
     const target = e.target as HTMLSelectElement;
     association[target.name] = target.value;
-    console.log(association);
+    let allHeaders = true;
+    for(const value of Object.values(association)){
+      if(value === ""){
+        allHeaders = false;
+      }
+    }
+    if(allHeaders){
+      ready = true;
+    }else{
+      ready = false;
+    }
   }
+ /* const onSubmit = (e: Event) =>{
+    e.preventDefault();
+    console.log(association);
+    console.log(ready);
+    if(ready){
+      const body = { username: association.nom, password: association.prenom, catégorie: association.catégorie, dossard: association.dossard };
+      const response = fetch('https://scrapping-runinlyon-colladobenoit.replit.app/upload/metadata',
+       {
+         method: "POST",
+         headers: {
+           "Credentiales": "include",
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(body),
+       }
+     );
+      const data = response.json();
+      console.log(data);
+    }
+  }*/
+  
 </script>
 
 <template>
