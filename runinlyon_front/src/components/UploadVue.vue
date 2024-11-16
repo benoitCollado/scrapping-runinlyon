@@ -38,7 +38,9 @@ function onChangeInput(e: Event){
   fileReader.onloadend = () => {
      let result = fileReader.result as string;
     result = result.replace("é", 'e');
+    console.log(result);
     result = result.replace("è", 'e');
+    console.log(result);
     result = result.replace("ê", 'e');
     result = result.replace("à", 'a');
     result = result.replace("â", 'a');
