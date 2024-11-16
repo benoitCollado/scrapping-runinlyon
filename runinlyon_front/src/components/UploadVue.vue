@@ -37,16 +37,16 @@ function onChangeInput(e: Event){
  }
   fileReader.onloadend = () => {
      let result = fileReader.result as string;
-    result = result.replace(/é/g, 'e');
-    result = result.replace(/è/g, 'e');
-    result = result.replace(/ê/g, 'e');
-    result = result.replace(/à/g, 'a');
-    result = result.replace(/â/g, 'a');
-    result = result.replace(/ù/g, 'u');
-    result = result.replace(/ç/g, 'c');
-    result = result.replace(/ï/g, 'i');
-    result = result.replace(/î/g, 'i');
-    result = result.replace(/ô/g, 'o');
+    result = result.replace("é", 'e');
+    result = result.replace("è", 'e');
+    result = result.replace("ê", 'e');
+    result = result.replace("à", 'a');
+    result = result.replace("â", 'a');
+    result = result.replace("ù", 'u');
+    result = result.replace("ç", 'c');
+    result = result.replace("ï", 'i');
+    result = result.replace("î", 'i');
+    result = result.replace("ô", 'o');
     data = result;
     headersCSV.value = csv.get_headers(data, ";");
     //console.log(data);
@@ -77,7 +77,7 @@ function onChangeInput(e: Event){
     console.log(fileType);
     if(ready){
       for (const [key, value] of Object.entries(association)){
-        data.replace(value, key);
+        data = data.replace(value, key);
       }
       console.log(data);
       const body = { name : fileName, type : fileType};
