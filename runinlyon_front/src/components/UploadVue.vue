@@ -2,8 +2,8 @@
   import csv from "../csv-sync.js";
   import {ref} from 'vue';
   const headersCSV = ref<string[]>([]);
-  const headers = ["nom", "prenom", "catégorie", "dossard"];
-  const association: {[key:string]:string} = {nom: "", prenom: "", catégorie: "", dossard: ""};
+  const headers = ["nom", "prenom", "categorie", "dossard"];
+  const association: {[key:string]:string} = {nom: "", prenom: "", categorie: "", dossard: ""};
   let fileName : string = "";
   let fileType : string = "";
   interface InputFileEventTarget extends EventTarget{
@@ -76,6 +76,10 @@ function onChangeInput(e: Event){
     console.log(fileName);
     console.log(fileType);
     if(ready){
+      for (const [key, value] of Object.entries(association)){
+        data.replace(value, key);
+      }
+      console.log(data);
       const body = { name : fileName, type : fileType};
       const response = await fetch('https://scrapping-runinlyon-colladobenoit.replit.app/upload/metadata',
        {
@@ -87,8 +91,8 @@ function onChangeInput(e: Event){
          body: JSON.stringify(body),
        }
      );
-      const data = await response.json();
-      console.log(data);
+      const respJson = await response.json();
+      console.log(respJson);
     }
   }
   
