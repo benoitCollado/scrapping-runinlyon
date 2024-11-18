@@ -3,7 +3,7 @@
   import {ref} from 'vue';
   const headersCSV = ref<string[]>([]);
   const headers = ["nom", "prenom", "categorie", "Dossard"];
-  const association: {[key:string]:string} = {nom: "", prenom: "", categorie: "", dossard: ""};
+  const association: {[key:string]:string} = {nom: "", prenom: "", categorie: "", Dossard: ""};
   let fileName : string = "";
   let fileType : string = "";
   interface InputFileEventTarget extends EventTarget{
