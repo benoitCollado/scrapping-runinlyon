@@ -2,7 +2,7 @@
   import csv from "../csv-sync.js";
   import {ref} from 'vue';
   const headersCSV = ref<string[]>([]);
-  const headers = ["nom", "prenom", "categorie", "dossard"];
+  const headers = ["nom", "prenom", "categorie", "Dossard"];
   const association: {[key:string]:string} = {nom: "", prenom: "", categorie: "", dossard: ""};
   let fileName : string = "";
   let fileType : string = "";
@@ -95,6 +95,21 @@ function onChangeInput(e: Event){
      );
       const respJson = await response.json();
       console.log(respJson);
+      if(response.ok){
+        const id = respJson.id;
+        const body = {data:data}
+        const uploadResponse = await fetch('https://scrapping-runinlyon-colladobenoit.replit.app/upload/file/'+id,
+         {
+           method: "POST",
+           headers: {
+             "Credentiales": "include",
+             "Content-Type": "text/csv",
+           },
+           body: JSON.stringify(body),
+         });
+        const uploadJson = await uploadResponse.json();
+        console.log(uploadJson);
+      }
     }
   }
   
