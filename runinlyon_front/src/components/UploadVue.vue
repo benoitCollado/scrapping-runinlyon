@@ -67,6 +67,7 @@ function onChangeInput(e: Event){
         allHeaders = false;
       }
     }
+    console.log(association);
     if(allHeaders){
       ready = true;
     }else{
@@ -77,6 +78,7 @@ function onChangeInput(e: Event){
     e.preventDefault();
     console.log(fileName);
     console.log(fileType);
+   console.log(ready);
     if(ready){
       for (const [key, value] of Object.entries(association)){
         data = data.replace(value, key);
